@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "Burger World",
+    "slug": "burger-world",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#FFCC00"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "io.batyr.expo-starter"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFCC00"
+      },
+      "package": "io.batyr.expostarter"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
