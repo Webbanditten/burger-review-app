@@ -1,9 +1,9 @@
 {
-  "name": "expo-starter",
+  "name": "bruger-world",
   "version": "5.0.0",
   "description": "Fork of https://github.com/kanzitelli",
-  "author": "Batyr <dev@batyr.io> (https://github.com/kanzitelli)",
-  "homepage": "https://github.com/kanzitelli/expo-starter",
+  "author": "Patrick Nærvig Wøhlk <patrick@webbanditten.dk> (https://github.com/webbanditten)",
+  "homepage": "https://github.com/webbanditten/burger-review-app",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "npx expo start",
@@ -37,11 +37,11 @@
     "@shopify/flash-list": "1.1.0",
     "date-fns": "^2.29.3",
     "expo": "^46.0.0",
-    "expo-dev-client": "~1.2.1",
+    "expo-dev-client": "~1.3.1",
     "expo-localization": "~13.1.0",
     "expo-splash-screen": "~0.16.2",
     "expo-status-bar": "~1.4.0",
-    "expo-updates": "~0.14.6",
+    "expo-updates": "~0.14.7",
     "formik": "^2.2.9",
     "i18n-js": "^4.1.1",
     "lodash": "^4.17.21",
@@ -86,16 +86,6 @@
     "@types/react": "18.0.0",
     "@types/react-dom": "18.0.0"
   },
-  "keywords": [
-    "react",
-    "react-native",
-    "react-navigation",
-    "react-native-starter",
-    "react-native-template",
-    "expo",
-    "expo-modules",
-    "expo-starter",
-    "expo-template"
-  ],
+  "keywords": [],
   "license": "MIT"
 }
