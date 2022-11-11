@@ -1,4 +1,10 @@
 export const en = {
+  restaurants: {
+    title: 'Restaurants',
+    list: {
+      title: "List of restaurants"
+    }
+  },
   home: {
     title: 'Home',
   },

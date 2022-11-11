@@ -7,11 +7,12 @@ import {Example} from './_screen-sample';
 
 import {useAppearance} from '../utils/hooks';
 import {screenDefaultOptions, tabDefaultOptions, getTabBarIcon} from '../utils/designSystem';
+import RestaurantsScreen from './restaurants/Restaurants.screen';
 
 // NAVIO
 export const navio = Navio.build({
   screens: {
-    Main,
+    RestaurantsScreen,
     Settings,
     Example,
     Playground: {
@@ -22,23 +23,16 @@ export const navio = Navio.build({
     },
   },
   stacks: {
-    MainStack: ['Main', 'Example'],
+    RestaurantsStack: ['RestaurantsScreen', 'Example'],
     ExampleStack: ['Example'],
   },
   tabs: {
-    MainTab: {
-      stack: 'MainStack',
+    RestaurantsTab: {
+      stack: 'RestaurantsStack',
       options: {
-        title: 'Home',
+        title: 'Restaurants',
         tabBarIcon: getTabBarIcon('MainTab'),
       },
-    },
-    PlaygroundTab: {
-      stack: ['Playground'],
-      options: () => ({
-        title: 'Playground',
-        tabBarIcon: getTabBarIcon('PlaygroundTab'),
-      }),
     },
     SettingsTab: {
       stack: ['Settings'],

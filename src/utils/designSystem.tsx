@@ -88,6 +88,8 @@ export const getStatusBarBGColor = (): string => {
   return themes[appearance ?? 'light'].bg2Color;
 };
 
+
+
 export const getNavigationTheme = (): Theme => {
   const {ui} = stores;
 
@@ -100,7 +102,7 @@ export const getNavigationTheme = (): Theme => {
       background: Colors.bgColor,
       card: Colors.bgColor,
       text: Colors.textColor,
-      // border: Colors.grey30,
+      border: Colors.grey30,
       // notification: Colors.primary,
     },
   };
@@ -113,7 +115,7 @@ export const getNavigationTheme = (): Theme => {
       background: Colors.bgColor,
       card: Colors.bgColor,
       text: Colors.textColor,
-      // border: Colors.grey30,
+      border: Colors.primary,
       // notification: Colors.primary,
     },
   };
@@ -166,7 +168,7 @@ export const getTabBarIcon =
 
 const getTabIconName = (tabName: string, focused: boolean): string => {
   if (tabName === 'MainTab') {
-    return focused ? 'home' : 'home-outline';
+    return focused ? 'fast-food' : 'fast-food-outline';
   }
   if (tabName === 'PlaygroundTab') {
     return focused ? 'construct' : 'construct-outline';
