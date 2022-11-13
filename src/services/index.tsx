@@ -2,13 +2,13 @@ import React from 'react';
 
 import {OnStartService} from './onStart';
 import {TranslateService} from './translate';
-import {ApiService} from './api';
+import {BurgerApiService} from './burger-api';
 import {getNavio} from '../screens';
 
 class Services {
   t = new TranslateService();
   onStart = new OnStartService();
-  api = new ApiService();
+  api = new BurgerApiService();
 
   // -- adding navio as a service
   get navio() {

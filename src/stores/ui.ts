@@ -6,7 +6,7 @@ export class UIStore implements IStore {
   appLaunches = 0;
 
   // Appearance
-  appearance: Appearance = 'system';
+  appearance: Appearance = 'dark';
   get appearanceStr() {
     return appearanceToUI[this.appearance];
   }
@@ -15,7 +15,7 @@ export class UIStore implements IStore {
   }
 
   // Language
-  language: Language = 'system';
+  language: Language = 'en';
   get languageStr() {
     return languageToUI[this.language];
   }

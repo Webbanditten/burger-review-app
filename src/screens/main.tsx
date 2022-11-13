@@ -25,19 +25,7 @@ export const Main: NavioScreen = observer(({}) => {
   // State (local)
   const [loading, setLoading] = useState(false);
 
-  // API Methods
-  const getCounterValue = useCallback(async () => {
-    setLoading(true);
-    try {
-      const {value} = await api.counter.get();
 
-      counter.set('value', value);
-    } catch (e) {
-      console.log('[ERROR]', e);
-    } finally {
-      setLoading(false);
-    }
-  }, [api.counter, counter]);
 
   // Methods
   const push = () => navio.push('Example', {type: 'push'});
@@ -52,7 +40,6 @@ export const Main: NavioScreen = observer(({}) => {
   // Start
   useEffect(() => {
     configureUI();
-    getCounterValue();
   }, []);
 
   // UI Methods
@@ -113,9 +100,7 @@ export const Main: NavioScreen = observer(({}) => {
           </View>
         </Section>
 
-        <Section title="API">
-          <BButton margin-s1 label="Update counter value from API" onPress={getCounterValue} />
-        </Section>
+
       </ScrollView>
     </View>
   );

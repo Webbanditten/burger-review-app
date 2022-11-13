@@ -1,43 +1,54 @@
-import React, {useMemo} from 'react';
-import {Image} from 'react-native';
+import React, { useEffect } from 'react';
 // import FastImage from 'react-native-fast-image';
-import {Text, View} from 'react-native-ui-lib';
-import {FlashList} from '@shopify/flash-list';
-import {observer} from 'mobx-react';
-import {useAppearance} from '../../utils/hooks';
+import { FlashList } from '@shopify/flash-list';
+import { observer } from 'mobx-react';
+import { View } from 'react-native-ui-lib';
+import { NavioScreen } from 'rn-navio';
+import { RestaurantListItem } from '../../components/restaurant-list-item';
+import { services, useServices } from '../../services';
+import { useAppearance } from '../../utils/hooks';
 import Restaurant from '../../utils/types/data/Restaurant';
-import {ListHeader} from '../../components/list-header';
-import {RestaurantListItem} from '../../components/restaurant-list-item';
-import {NavioScreen} from 'rn-navio';
-import {services, useServices} from '../../services';
-import {Rating} from 'react-native-ratings';
-import { themeColors } from 'react-native-ui-lib/src/style/colorsPalette';
+import { ActivityIndicator, RefreshControl, ScrollView, Text } from 'react-native';
 import { getNavigationTheme } from '../../utils/designSystem';
 
 const RestaurantsScreen: NavioScreen = observer(() => {
   useAppearance();
-  const { t } = useServices();
+  const { t, api } = useServices();
+  const theme = getNavigationTheme();
+  const [restaurants, setRestaurants] = React.useState<Restaurant[]>([]);
+  const [loading, setLoading] = React.useState(false);
 
-  const data: Restaurant[] = [
-    {
-      id: '1',
-      name: 'Restaurant 1',
-      description: 'Restaurant 1 description',
-      image: 'https://picsum.photos/200?image=1',
-      longitude: 0,
-      latitude: 0,
-      address: 'Address 1',
+  useEffect(() => {
+    const fetchRestaurants = async () => {
+      await getRestaurants()
     }
-  ];
+    fetchRestaurants();
+  }, []);
+
+  const getRestaurants = async () => {
+    setLoading(true);
+    console.log("Wat1")
+    await api.burgerApi.getRestaurants().then((restaurants) => { 
+      setRestaurants(restaurants); 
+      setLoading(false); 
+      console.log("Wat2")
+    });
+  }
 
   return (
     <View flex bg-bgColor>
       <FlashList
-        contentInsetAdjustmentBehavior="always"
-        data={data}
+      contentInsetAdjustmentBehavior="automatic"
+        data={restaurants}
         renderItem={({item}) => <RestaurantListItem {...item} />}
-        ListHeaderComponent={<ListHeader title={t.do('restaurants.list.title')} />}
-        estimatedItemSize={1}
+        estimatedItemSize={2}
+        refreshControl={<RefreshControl
+          refreshing={loading}
+          onRefresh={getRestaurants.bind(this)}
+          title={t.do("pullToRefresh")}
+          tintColor="#fff"
+          titleColor="#fff"
+       />}
       />
     </View>
   );

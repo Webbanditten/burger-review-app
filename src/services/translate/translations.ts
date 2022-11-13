@@ -1,8 +1,9 @@
 export const en = {
+  pullToRefresh: "Pull to refresh",
   restaurants: {
     title: 'Restaurants',
     list: {
-      title: "List of restaurants"
+      title: "Nearby burger joints"
     }
   },
   home: {

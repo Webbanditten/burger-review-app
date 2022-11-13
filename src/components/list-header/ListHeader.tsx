@@ -8,7 +8,7 @@ export const ListHeader = (props: { title: string }) => {
   return (
     <View padding-s2 bg-bgColor>
       <Text text50M textColor>
-        {props.title}
+        {props.title.toUpperCase()}
       </Text>
     </View>
   );
