@@ -43,7 +43,7 @@ export class UIStore implements IStore {
   }
 
   // Hydration
-  hydrate = async (): PVoid => {
+  hydrate = async (): Promise<void> => {
     await hydrateStore(this);
   };
 }

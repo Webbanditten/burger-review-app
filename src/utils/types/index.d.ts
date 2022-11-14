@@ -1,6 +1,6 @@
 // `stores` layer
 interface IStore {
-  hydrate?: () => PVoid;
+  hydrate?: () => Promise<void>;
 }
 
 type StoreDefaultKeys = 'set' | 'setMany' | 'hydrate';
@@ -8,15 +8,8 @@ type StoreKeysOf<S> = keyof Omit<S, StoreDefaultKeys>;
 
 // `services` layer
 interface IService {
-  init: () => PVoid;
+  init: () => Promise<void>;
 }
-
-// System
-type PVoid = Promise<void>;
-type AnyObj = Record<string, unknown>;
-type PureFunc = () => void;
-type PureFuncAsync = () => PVoid;
-type PureFuncArg<T> = (value?: T) => void;
 
 // Design system
 type ThemeColors = {

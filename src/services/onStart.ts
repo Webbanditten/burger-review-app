@@ -5,7 +5,7 @@ import {stores} from '../stores';
 export class OnStartService implements IService {
   private inited = false;
 
-  init = async (): PVoid => {
+  init = async (): Promise<void> => {
     if (!this.inited) {
       this.incAppLaunches();
 

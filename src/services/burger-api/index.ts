@@ -9,7 +9,7 @@ export class BurgerApiService implements IService {
     this.burgerApi = new BurgerApi();
   }
 
-  init = async (): PVoid => {
+  init = async (): Promise<void> => {
     if (!this.initiated) {
       // your code ...
 

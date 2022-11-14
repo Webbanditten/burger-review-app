@@ -8,7 +8,7 @@ export class TranslateService implements IService {
   private inited = false;
   private i18n = new I18n(translations);
 
-  init = async (): PVoid => {
+  init = async (): Promise<void> => {
     if (!this.inited) {
       this.setup();
 

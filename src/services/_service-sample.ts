@@ -1,11 +1,11 @@
 export class ExampleService implements IService {
-  private inited = false;
+  private initiated = false;
 
-  init = async (): PVoid => {
-    if (!this.inited) {
+  init = async (): Promise<void> => {
+    if (!this.initiated) {
       // your code ...
 
-      this.inited = true;
+      this.initiated = true;
     }
   };
 }

@@ -4,7 +4,7 @@ import {Bounceable} from 'rn-bounceable';
 
 type Props = MarginModifiers & {
   label?: string;
-  onPress?: PureFunc;
+  onPress?: () => void;
 };
 
 export const BButton: React.FC<Props> = ({label, onPress, ...modifiers}) => {

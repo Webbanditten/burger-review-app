@@ -40,7 +40,7 @@ const themes: Record<Appearance, ThemeColors> = {
 };
 
 // for more information - https://wix.github.io/react-native-ui-lib/foundation/style
-export const configureDesignSystem = async (): PVoid => {
+export const configureDesignSystem = async (): Promise<void> => {
   const {ui} = stores;
 
   setColorsScheme(ui.appearance); // needed here
@@ -170,9 +170,6 @@ export const getTabBarIcon =
 const getTabIconName = (tabName: string, focused: boolean): string => {
   if (tabName === 'MainTab') {
     return focused ? 'fast-food' : 'fast-food-outline';
-  }
-  if (tabName === 'PlaygroundTab') {
-    return focused ? 'construct' : 'construct-outline';
   }
   if (tabName === 'SettingsTab') {
     return focused ? 'settings' : 'settings-outline';

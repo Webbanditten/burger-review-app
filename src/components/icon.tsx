@@ -8,7 +8,7 @@ type IconProps = {
   size?: number;
   color?: string;
   viewProps?: ViewProps;
-  onPress?: PureFunc;
+  onPress?: () => void;
   bounceable?: boolean;
 };
 
