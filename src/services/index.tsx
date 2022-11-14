@@ -23,7 +23,7 @@ export const ServicesProvider = ({children}: any) => (
 );
 export const useServices = (): Services => React.useContext(servicesContext);
 
-export const initServices = async (): PVoid => {
+export const initServices = async (): Promise<void> => {
   for (const key in services) {
     if (Object.prototype.hasOwnProperty.call(services, key)) {
       const s = (services as any)[key] as IService;

@@ -2,11 +2,11 @@ import React from 'react';
 
 import './_hydration';
 import {UIStore} from './ui';
-import {CounterStore} from './counter';
+import { RestaurantsStore } from './restaurants';
 
 class Stores {
   ui = new UIStore();
-  counter = new CounterStore();
+  restaurants = new RestaurantsStore();
 }
 export const stores = new Stores();
 
@@ -16,7 +16,7 @@ export const StoresProvider = ({children}: any) => (
 );
 export const useStores = (): Stores => React.useContext(storeContext);
 
-export const hydrateStores = async (): PVoid => {
+export const hydrateStores = async (): Promise<void> => {
   for (const key in stores) {
     if (Object.prototype.hasOwnProperty.call(stores, key)) {
       const s = (stores as any)[key] as IStore;

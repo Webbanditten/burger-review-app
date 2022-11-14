@@ -1,5 +1,6 @@
 import React from 'react';
 import {Image, Text, View, ViewProps} from 'react-native-ui-lib';
+import { useServices } from '../../services';
 import {getNavigationTheme} from '../../utils/designSystem';
 import { hexToRgb } from '../../utils/help';
 import Restaurant from '../../utils/types/data/Restaurant';
@@ -7,6 +8,11 @@ import Restaurant from '../../utils/types/data/Restaurant';
 export const RestaurantListItem = (props: Restaurant) => {
   const theme = getNavigationTheme();
   const titleColor = hexToRgb(theme.colors.primary);
+  const { navio } = useServices();
+  const navigate = () => {
+    navio.push('RestaurantViewScreen', {restaurant: props});
+  };
+
   return (
     <View
       margin-s2
@@ -14,6 +20,7 @@ export const RestaurantListItem = (props: Restaurant) => {
       style={{
         flexDirection: 'row',
       }}
+      onTouchEnd={navigate}
     >
       <Image
         source={props.image}

@@ -8,42 +8,34 @@ import {Example} from './_screen-sample';
 import {useAppearance} from '../utils/hooks';
 import {screenDefaultOptions, tabDefaultOptions, getTabBarIcon} from '../utils/designSystem';
 import RestaurantsScreen from './restaurants/Restaurants.screen';
+import { services } from '../services';
+import RestaurantViewScreen from './restaurant-view/RestaurantView.screen';
 
 // NAVIO
 export const navio = Navio.build({
   screens: {
     RestaurantsScreen,
-    Settings,
-    Example,
-    Playground: {
-      component: Playground,
-      options: () => ({
-        title: 'Playground',
-      }),
-    },
+    RestaurantViewScreen,
+    Settings
   },
   stacks: {
-    RestaurantsStack: ['RestaurantsScreen', 'Example'],
-    ExampleStack: ['Example'],
+    RestaurantsStack: ['RestaurantsScreen', 'RestaurantViewScreen']
   },
   tabs: {
     RestaurantsTab: {
       stack: 'RestaurantsStack',
       options: {
-        title: 'Restaurants',
+        title: services.t.do('restaurants.title'),
         tabBarIcon: getTabBarIcon('MainTab'),
       },
     },
     SettingsTab: {
       stack: ['Settings'],
       options: () => ({
-        title: 'Settings',
+        title: services.t.do('settings.title'),
         tabBarIcon: getTabBarIcon('SettingsTab'),
       }),
     },
-  },
-  modals: {
-    ExampleModal: 'ExampleStack',
   },
   root: 'Tabs',
   hooks: [useAppearance],

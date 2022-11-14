@@ -10,30 +10,37 @@ import { useAppearance } from '../../utils/hooks';
 import Restaurant from '../../utils/types/data/Restaurant';
 import { ActivityIndicator, RefreshControl, ScrollView, Text } from 'react-native';
 import { getNavigationTheme } from '../../utils/designSystem';
+import { useStores } from '../../stores';
 
 const RestaurantsScreen: NavioScreen = observer(() => {
   useAppearance();
   const { t, api } = useServices();
   const theme = getNavigationTheme();
-  const [restaurants, setRestaurants] = React.useState<Restaurant[]>([]);
+  const { restaurants: restaurantsStore } = useStores();
+  const [restaurants, setRestaurants] = React.useState<Restaurant[]>(restaurantsStore.restaurants);
   const [loading, setLoading] = React.useState(false);
+
+  const getRestaurants = async () => {
+    setLoading(true);
+    await api.burgerApi.getRestaurants().then((restaurants) => { 
+      setRestaurants(restaurants); 
+      setLoading(false);
+    });
+  }
 
   useEffect(() => {
     const fetchRestaurants = async () => {
       await getRestaurants()
     }
-    fetchRestaurants();
+    if(!restaurantsStore.restaurants) {
+      fetchRestaurants();
+    } else {
+      const restaurants: Restaurant[] = [];
+      restaurantsStore.restaurants.forEach((restaurant) => { restaurants.push(restaurant) });
+      setRestaurants(restaurants);
+    }
+    
   }, []);
-
-  const getRestaurants = async () => {
-    setLoading(true);
-    console.log("Wat1")
-    await api.burgerApi.getRestaurants().then((restaurants) => { 
-      setRestaurants(restaurants); 
-      setLoading(false); 
-      console.log("Wat2")
-    });
-  }
 
   return (
     <View flex bg-bgColor>

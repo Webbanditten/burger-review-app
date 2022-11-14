@@ -1,3 +1,5 @@
+import Review from "./Review";
+
 type Restaurant = {
     id: string;
     name: string;
@@ -6,6 +8,7 @@ type Restaurant = {
     longitude: number;
     latitude: number;
     address: string;
+    reviews: Review[];
 }
 
 export default Restaurant;
