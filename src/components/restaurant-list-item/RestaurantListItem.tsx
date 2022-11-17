@@ -1,14 +1,14 @@
 import React from 'react';
 import {Image, Text, View, ViewProps} from 'react-native-ui-lib';
-import { useServices } from '../../services';
+import {useServices} from '../../services';
 import {getNavigationTheme} from '../../utils/designSystem';
-import { hexToRgb } from '../../utils/help';
+import {hexToRgb} from '../../utils/help';
 import Restaurant from '../../utils/types/data/Restaurant';
 
 export const RestaurantListItem = (props: Restaurant) => {
   const theme = getNavigationTheme();
   const titleColor = hexToRgb(theme.colors.primary);
-  const { navio } = useServices();
+  const {navio} = useServices();
   const navigate = () => {
     navio.push('RestaurantViewScreen', {restaurant: props});
   };
