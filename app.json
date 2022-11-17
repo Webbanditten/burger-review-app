@@ -17,14 +17,14 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "io.batyr.expo-starter"
+      "bundleIdentifier": "com.webbanditten.burger-world"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFCC00"
       },
-      "package": "io.batyr.expostarter"
+      "package": "com.webbanditten.burger-world"
     },
     "web": {
       "favicon": "./assets/favicon.png"
