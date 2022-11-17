@@ -88,8 +88,6 @@ export const getStatusBarBGColor = (): string => {
   return themes[appearance ?? 'light'].bg2Color;
 };
 
-
-
 export const getNavigationTheme = (): Theme => {
   const {ui} = stores;
 
