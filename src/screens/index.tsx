@@ -1,25 +1,26 @@
 import {Navio} from 'rn-navio';
-
-import {Main} from './main';
-import {Playground} from './playground';
 import {Settings} from './settings';
-import {Example} from './_screen-sample';
 
 import {useAppearance} from '../utils/hooks';
 import {screenDefaultOptions, tabDefaultOptions, getTabBarIcon} from '../utils/designSystem';
 import RestaurantsScreen from './restaurants/Restaurants.screen';
-import { services } from '../services';
+import {services} from '../services';
 import RestaurantViewScreen from './restaurant-view/RestaurantView.screen';
+import RestaurantReviewsScreen from './restaurant-reviews/RestaurantReviews.screen';
+import RestaurantDetailsModal from './restaurant-details/RestaurantDetails.modal';
 
 // NAVIO
 export const navio = Navio.build({
   screens: {
     RestaurantsScreen,
     RestaurantViewScreen,
-    Settings
+    RestaurantReviewsScreen,
+    Settings,
+    RestaurantDetailsModal,
   },
   stacks: {
-    RestaurantsStack: ['RestaurantsScreen', 'RestaurantViewScreen']
+    RestaurantsStack: ['RestaurantsScreen', 'RestaurantViewScreen', 'RestaurantReviewsScreen'],
+    ModalStack: ['RestaurantDetailsModal'],
   },
   tabs: {
     RestaurantsTab: {
@@ -36,6 +37,9 @@ export const navio = Navio.build({
         tabBarIcon: getTabBarIcon('SettingsTab'),
       }),
     },
+  },
+  modals: {
+    RestaurantDetails: 'ModalStack',
   },
   root: 'Tabs',
   hooks: [useAppearance],

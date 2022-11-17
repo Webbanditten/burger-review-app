@@ -1,19 +1,15 @@
-import React, {useEffect} from 'react';
-// import FastImage from 'react-native-fast-image';
-import {FlashList} from '@shopify/flash-list';
+import React from 'react';
 import {observer} from 'mobx-react';
-import {Card, FloatingButton, Image, Text, View} from 'react-native-ui-lib';
+import {Image, View} from 'react-native-ui-lib';
 import {NavioScreen} from 'rn-navio';
-import {RestaurantListItem} from '../../components/restaurant-list-item';
-import {services, useServices} from '../../services';
+import {useServices} from '../../services';
 import {useAppearance} from '../../utils/hooks';
 import Restaurant from '../../utils/types/data/Restaurant';
-import {ActivityIndicator, RefreshControl, ScrollView} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 import {getNavigationTheme} from '../../utils/designSystem';
-import {hexToRgb} from '../../utils/help';
-import { Rating } from 'react-native-ratings';
-import Reviews from '../../utils/types/data/Review';
-import Review from '../../utils/types/data/Review';
+import {Rating} from 'react-native-ratings';
+import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
+import {RestaurantSubMenu} from '../../components/restaurant-sub-menu';
 
 interface RestaurantViewScreenProps {
   children?: React.ReactNode;
@@ -26,52 +22,84 @@ interface RestaurantViewScreenProps {
 
 const RestaurantViewScreen: NavioScreen = observer((props: RestaurantViewScreenProps) => {
   const restaurant = props.route?.params.restaurant as Restaurant;
-  
+
   useAppearance();
   const theme = getNavigationTheme();
-  const titleColor = hexToRgb(theme.colors.primary);
-  const {t, api} = useServices();
+  const {t} = useServices();
   const {navio} = useServices();
-  const [restaurants, setRestaurants] = React.useState<Restaurant[]>([]);
-  const [loading, setLoading] = React.useState(false);
 
-  const reviews = () => {
-    let _reviews: Review[] = [];
-    restaurant.reviews.forEach((review) => { _reviews.push(review) });
-    return _reviews;
-  }
+  const styles = StyleSheet.create({
+    map: {
+      width: Dimensions.get('window').width,
+      flex: 1,
+    },
+  });
+
+  const coordinates = {
+    longitude: restaurant.longitude,
+    latitude: restaurant.latitude,
+  };
+
+  const calculatedRating = () => {
+    let total = 0;
+    restaurant.reviews.forEach(review => {
+      total += review.qualityRating;
+    });
+    return total / restaurant.reviews.length;
+  };
 
   return (
     <View flex bg-bgColor>
       <View>
         <Image source={restaurant?.image} style={{width: '100%', height: 200}} />
         <View
-          padding-s2
           style={{
-            width: '100%',
             position: 'absolute',
-            bottom: 0,
-            backgroundColor: `rgba(${titleColor?.r},${titleColor?.g},${titleColor?.b},0.8)`,
+            top: 0,
+            right: 0,
+            borderBottomLeftRadius: 10,
+            backgroundColor: theme.colors.primary,
+            height: 32,
+            paddingLeft: 4,
+            paddingRight: 4,
           }}
         >
-          <Text margin-s1 style={{color: "#000"}}>
-            {restaurant.address}
-          </Text>
+          <Rating
+            imageSize={28}
+            readonly
+            startingValue={calculatedRating()}
+            ratingCount={5}
+            tintColor={theme.colors.primary}
+            ratingColor={'#000'}
+            ratingBackgroundColor={'#fff'}
+            type="custom"
+          />
         </View>
       </View>
-      <FlashList
-      ListHeaderComponent={<Text>Reviews</Text>}
-      contentInsetAdjustmentBehavior="automatic"
-        data={reviews()}
-        renderItem={({item}) => <Card  margin-s2 style={{backgroundColor: theme.colors.primary}} marginB-s4 >
-          <Card.Section imageSource={item.image} imageStyle={{height: 120}}/>
-          <Text text14 style={{color: "#000"}}>Something here</Text>
-       <Rating imageSize={24} readonly startingValue={item.qualityRating} ratingCount={5} tintColor={theme.colors.primary} ratingColor={"#000"} ratingBackgroundColor={"#fff"}  type="custom"   />
-        
-      </Card>}
-        estimatedItemSize={2}
+
+      <RestaurantSubMenu
+        menu={[
+          {
+            label: t.do('restaurants.menu.details'),
+            onPress: () => null,
+          },
+          {
+            label: t.do('restaurants.menu.reviews'),
+            onPress: () => navio.push('RestaurantReviewsScreen', {restaurant: restaurant}),
+          },
+        ]}
       />
-      <FloatingButton  visible={1}  button={{label: 'Approve', onPress: () => console.log('approved')}}/>
+      <MapView
+        initialRegion={{
+          ...coordinates,
+          latitudeDelta: 0.005,
+          longitudeDelta: 0.005,
+        }}
+        style={styles.map}
+        provider={PROVIDER_GOOGLE}
+      >
+        <Marker key="0" coordinate={coordinates} title={restaurant.name} />
+      </MapView>
     </View>
   );
 });

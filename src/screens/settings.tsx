@@ -1,12 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {Alert, ScrollView} from 'react-native';
-import {Text, View, SegmentedControl, Colors} from 'react-native-ui-lib';
+import {Text, View, SegmentedControl, Colors, Button} from 'react-native-ui-lib';
 import {observer} from 'mobx-react';
 import {useNavigation} from '@react-navigation/native';
 import {NavioScreen} from 'rn-navio';
 
-import {Section} from '../components/section';
-import {Row} from '../components/row';
 import {
   appearances,
   appearancesUI,
@@ -17,7 +15,6 @@ import {
 } from '../utils/types/enums';
 import {useAppearance} from '../utils/hooks';
 import {useStores} from '../stores';
-import {HeaderButton} from '../components/button';
 import {services} from '../services';
 
 export const Settings: NavioScreen = observer(({}) => {
@@ -38,14 +35,20 @@ export const Settings: NavioScreen = observer(({}) => {
   const languageInitialIndex = languages.findIndex(it => it === language);
   const languageSegments = languagesUI.map(it => ({label: it}));
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handleSave = () => {
+    ui.setMany({
+      appearance,
+      language,
+    });
+  };
   // Start
   useEffect(() => {
-    console.log(unsavedChanges)
+    console.log(unsavedChanges);
     navigation.setOptions({
-      headerRight: () =>
-        unsavedChanges ? <HeaderButton onPress={handleSave} label="Save" /> : null,
+      headerRight: () => (unsavedChanges ? <Button onPress={handleSave} label="Save" /> : null),
     });
-  }, [unsavedChanges, appearance, language]);
+  }, [unsavedChanges, appearance, language, handleSave, navigation]);
 
   // Methods
   const handleAppearanceIndexChange = (index: number) =>
@@ -53,55 +56,25 @@ export const Settings: NavioScreen = observer(({}) => {
   const handleLanguageIndexChange = (index: number) =>
     setLanguage(languageUIToInternal[languagesUI[index]]);
 
-  const handleSave = () => {
-    ui.setMany({
-      appearance,
-      language,
-    });
-  };
-
   return (
     <View flex bg-bgColor>
       <ScrollView contentInsetAdjustmentBehavior="always">
-        <Section title={'UI'}>
-          <View paddingV-s1>
-            <Row>
-              <View flex>
-                <Text textColor text60R>
-                  Appearance
-                </Text>
-              </View>
-
-              <SegmentedControl
-                initialIndex={appearanceInitialIndex}
-                segments={appearanceSegments}
-                backgroundColor={Colors.bgColor}
-                activeColor={Colors.primary}
-                inactiveColor={Colors.textColor}
-                onChangeIndex={handleAppearanceIndexChange}
-              />
-            </Row>
+        <View marginH-16 paddingV-s1>
+          <View flex>
+            <Text textColor text60R>
+              Language
+            </Text>
           </View>
 
-          <View paddingV-s1>
-            <Row>
-              <View flex>
-                <Text textColor text60R>
-                  Language
-                </Text>
-              </View>
-
-              <SegmentedControl
-                initialIndex={languageInitialIndex}
-                segments={languageSegments}
-                backgroundColor={Colors.bgColor}
-                activeColor={Colors.primary}
-                inactiveColor={Colors.textColor}
-                onChangeIndex={handleLanguageIndexChange}
-              />
-            </Row>
-          </View>
-        </Section>
+          <SegmentedControl
+            initialIndex={languageInitialIndex}
+            segments={languageSegments}
+            backgroundColor={Colors.bgColor}
+            activeColor={Colors.primary}
+            inactiveColor={Colors.textColor}
+            onChangeIndex={handleLanguageIndexChange}
+          />
+        </View>
       </ScrollView>
     </View>
   );

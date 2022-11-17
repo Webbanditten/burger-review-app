@@ -5,7 +5,6 @@ import Restaurant from '../utils/types/data/Restaurant';
 export class RestaurantsStore implements IStore {
   restaurants: Restaurant[] = [];
 
-
   constructor() {
     makeAutoObservable(this);
 
