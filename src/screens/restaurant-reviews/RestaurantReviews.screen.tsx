@@ -67,6 +67,15 @@ const RestaurantReviewsScreen: NavioScreen = observer((props: RestaurantViewScre
     }
   };
 
+  useEffect(() => {
+    if(!showAddReview) {
+      setSelectedImage('');
+      setReview('');
+      setRating(0);
+      setLoading(false);
+    }
+  }, [showAddReview]);
+
   const submitReview = async () => {
     setLoading(true);
     const _review = await api.burgerApi.addReview(restaurant.id, {
@@ -79,12 +88,8 @@ const RestaurantReviewsScreen: NavioScreen = observer((props: RestaurantViewScre
       id: guidGenerator(),
     });
 
-    setReviews([...reviews, _review]);
-    setSelectedImage('');
-    setReview('');
-    setRating(0);
+    setReviews([ _review, ...reviews]);
     setShowAddReview(false);
-    setLoading(false);
   };
 
   const styles = StyleSheet.create({

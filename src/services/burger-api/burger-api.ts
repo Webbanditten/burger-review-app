@@ -73,7 +73,7 @@ export class BurgerApi {
     newData.forEach((restaurant: Restaurant) => {
       if (restaurant.id === restaurantId) {
         runInAction(() => {
-          restaurant.reviews.push(review);
+          restaurant.reviews.unshift(review);
         });
       }
     });
